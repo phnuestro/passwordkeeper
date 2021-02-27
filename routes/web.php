@@ -3,6 +3,7 @@
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
+use App\Http\Controllers\CredentialController;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,3 +28,7 @@ Route::get('/', function () {
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     return Inertia::render('Dashboard');
 })->name('dashboard');
+
+Route::get('credentials/',[CredentialController::class,'index'])->name('credentials')->middleware('auth');
+Route::post('credentials/',[CredentialController::class,'store'])->middleware('auth');
+Route::put('credentials/{id}',[CredentialController::class,'update'])->middleware('auth');
